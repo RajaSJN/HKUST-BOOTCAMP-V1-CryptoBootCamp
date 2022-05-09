@@ -37,8 +37,9 @@ if DEBUG:
     app.logger.info('DBMS        = ' + app_config.SQLALCHEMY_DATABASE_URI)
 
 if __name__ == "__main__":
-    os.system("brownie run src/scripts/deploy_system.py  --network rinkeby")
-    os.system("brownie run src/scripts/deploy_keys.py  --network rinkeby")
+    # os.system("brownie run src/scripts/deploy_system.py  --network rinkeby")
+    # os.system("brownie run src/scripts/deploy_keys.py  --network rinkeby")
+    app.debug = True
     app.run()
     
 # @app.route('/run-script')
@@ -59,7 +60,7 @@ def qr_read():
         return render_template('home/index.html', segment='index')
 
     elif request.method == 'GET':
-        file_path = 'qrImg.jpg'
+        file_path = '/static/assets/img/qrImg.jpg'
         with open(file_path, 'rb') as image_file:
             image = Image.open(image_file)
             image.load()
