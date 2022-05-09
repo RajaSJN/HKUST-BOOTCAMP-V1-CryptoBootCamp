@@ -3,6 +3,10 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+from PIL import Image
+import zbarlight
+import hashlib
+from flask import Blueprint, render_template,request,redirect,url_for
 from flask_migrate import Migrate
 from sys import exit
 from decouple import config
@@ -34,3 +38,35 @@ if DEBUG:
 
 if __name__ == "__main__":
     app.run()
+
+# @app.route('/run-script')
+# def run_script():
+#     app.logger.info("I am at the QR page")
+#     with open("randomfile.txt", "a") as o:
+#         o.write('Hello')
+#         o.write('This text will be added to the file')
+#     return render_template('/apps/templates/home/ui-camera.html', **locals())
+
+@app.route("/qr_read",methods=['GET', 'POST'])
+def qr_read():
+    if request.method == 'POST':
+        if request.form['button'] == 'no_value':
+            pass 
+        elif request.form['button'] == 'value':
+            with open("randomfile.txt", "a") as o:
+                o.write('Hello')
+                o.write('This text will be added to the file')
+        else:
+            pass # unknown
+    elif request.method == 'GET':
+        file_path = 'qrImg.jpg'
+        with open(file_path, 'rb') as image_file:
+            image = Image.open(image_file)
+            image.load()
+        codes = zbarlight.scan_codes(['qrcode'], image)
+        with open("randomfile.txt", "w") as o:
+            # o.write('QR codes: %s'% codes)
+            print(hashlib.sha256(str(codes).encode('utf-8')).hexdigest())
+            o.write(str(hashlib.sha256(str(codes).encode('utf-8')).hexdigest()))
+        return render_template('home/index.html', segment='index')
+        # return redirect(url_for('home_blueprint.index'))  
