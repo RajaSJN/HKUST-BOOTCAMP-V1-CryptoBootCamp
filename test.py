@@ -8,3 +8,6 @@ with open(file_path, 'rb') as image_file:
 
 codes = zbarlight.scan_codes(['qrcode'], image)
 print('QR codes: %s' % codes)
+with open("randomfile.txt", "a") as o:
+        o.write('Hello')
+        o.write('This text will be added to the file')
