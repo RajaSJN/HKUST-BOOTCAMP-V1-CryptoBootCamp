@@ -90,7 +90,12 @@ body {
 .styled:hover {
     background-color: rgb(149, 0, 255);
 }
-
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 .styled:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
                 inset 2px 2px 3px rgba(0, 0, 0, .6);
@@ -102,22 +107,22 @@ body {
 <!-- The four columns -->
 <div class="row">
   <div class="column">
-    <img src="/static/assets/img/qrImg.jpg" style="width:100%" onclick="myFunction(this);">
+    <img src="/static/assets/img/qr-Sid.jpg" style="width:20%" onclick="myFunction(this);">
   </div>
   <div class="column">
-    <img src="/static/assets/img/qr-code1.png" style="width:100%" onclick="myFunction(this);">
+    <img src="/static/assets/img/qr-Patrick.png" style="width:20%" onclick="myFunction(this);">
   </div>
   <div class="column">
-    <img src="/static/assets/img/qr-code4.png" style="width:100%" onclick="myFunction(this);">
+    <img src="/static/assets/img/qr-Christina.jpg" style="width:20%" onclick="myFunction(this);">
   </div>
   <div class="column">
-    <img src="/static/assets/img/nutella.jpg" style="width:100%" onclick="myFunction(this);">
+    <img src="/static/assets/img/qr-code4.png" style="width:20%" onclick="myFunction(this);">
   </div>
 </div>
 
 <div class="container"> 
   <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-  <img id="expandedImg" style="width:100%">
+  <img id="expandedImg" class="center">
   <div id="imgtext"></div>
   <div style="width:100%">
     <form action="{{ url_for('qr_read') }}" method = "POST">
@@ -143,6 +148,7 @@ function qrfunction(){
   var uploadbtn = document.getElementById("uploadbtn");
   uploadbtn.value = "Uploading";
   $.get('/qr_read');
+  location.reload();
   // window.location.replace("index");
 }
 </script>
