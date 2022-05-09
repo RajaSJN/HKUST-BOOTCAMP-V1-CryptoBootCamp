@@ -10,9 +10,10 @@ from flask import Blueprint, render_template,request,redirect,url_for
 from flask_migrate import Migrate
 from sys import exit
 from decouple import config
-from src.scripts import utils_key
+# from src.scripts import utils_key
 from apps.config import config_dict
 from apps import create_app, db
+from Key.src import utils_key
 import os
 # import brownie
 # WARNING: Don't run with debug turned on in production!
@@ -60,7 +61,7 @@ def qr_read():
         return render_template('home/index.html', segment='index')
 
     elif request.method == 'GET':
-        file_path = '/static/assets/img/qrImg.jpg'
+        file_path = 'qrImg.jpg'
         with open(file_path, 'rb') as image_file:
             image = Image.open(image_file)
             image.load()
@@ -68,8 +69,10 @@ def qr_read():
         with open("randomfile.txt", "w") as o:
             hashedQR = hashlib.sha256(str(codes).encode('utf-8')).hexdigest()
             o.write(str(hashlib.sha256(str(codes).encode('utf-8')).hexdigest()))
+            nonce  = utils_key.hash(hashedQR);
             # Nonce = utils_key.hash(hashedQR,1);
             o.write("\n")
+            o.write(str(nonce))
             # os.system("python3 src/interlay.py")
             # exec(open('/home/siddarth/crypto/black-dashboard-flask-master/src/scripts/main.py').read())
             # o.write(Nonce)
