@@ -66,6 +66,7 @@ def register():
 
         # Check usename exists
         user = Users.query.filter_by(username=username).first()
+        
         if user:
             return render_template('accounts/register.html',
                                    msg='Username already registered',

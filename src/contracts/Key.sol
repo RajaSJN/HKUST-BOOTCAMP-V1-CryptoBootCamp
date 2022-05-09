@@ -8,7 +8,9 @@ contract Key{
         return uint(keccak256(abi.encodePacked(block.timestamp,block.difficulty,msg.sender)))%hashDigit;
     }
     function hash(string memory _str) public view returns(bytes32){
-        bytes32 qrEncoded = sha256(abi.encodePacked(_str));
+        // bytes32 qrEncoded = sha256(abi.encodePacked(_str));
+        // The Qr codes string is hased in the frontend, before it is sent to the smart contract
+        bytes32 qrEncoded  = bytes32(abi.encodePacked(_str));
         bytes32 verificationEncoded = sha256(abi.encodePacked(verification));
         bytes memory combineEncoded = abi.encodePacked(qrEncoded,verificationEncoded);
         uint256 counter = 0;

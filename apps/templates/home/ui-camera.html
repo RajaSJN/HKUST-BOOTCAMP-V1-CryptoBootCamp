@@ -69,6 +69,7 @@ body {
   cursor: pointer;
 }
 .styled {
+    margin-left: 40%; margin-right: 40%; margin-top: 25px; width: 20%;
     border: 0;
     line-height: 2.5;
     padding: 0 20px;
@@ -119,40 +120,32 @@ body {
   <img id="expandedImg" style="width:100%">
   <div id="imgtext"></div>
   <div style="width:100%">
-    <form  method = "POST">
-      <button class="favorite styled" style="margin-left: 40%; margin-right: 40%; margin-top: 25px; width: 20%;" id="button" type="button" onclick="qrfunction();" value = "no_value">
-        Upload QR code
-      </button>
+    <form action="{{ url_for('qr_read') }}" method = "POST">
+      <input type="hidden" name="Filepath" id="Filepath" value="error">
+      <input class = "styled" type="submit" name="uploadbtn" id= "uploadbtn" value ="Upload QR code" onclick="qrfunction();">
     </form>
   </div>
 
 </div>
 
 <script>
+var expandImg = document.getElementById("expandedImg");
+var imgText = document.getElementById("imgtext");
 function myFunction(imgs) {
-  var expandImg = document.getElementById("expandedImg");
-  var imgText = document.getElementById("imgtext");
   expandImg.src = imgs.src;
   imgText.innerHTML = imgs.alt;
   expandImg.parentElement.style.display = "block";
+  var link = expandImg.src;
+  var Filepath = document.getElementById("Filepath");
+  Filepath.value = link;
 }
 function qrfunction(){
-  var btn = document.getElementById("button");
-  btn.value = "value";
+  var uploadbtn = document.getElementById("uploadbtn");
+  uploadbtn.value = "Uploading";
   $.get('/qr_read');
-  window.location.replace("index");
-}
-// Trying to get the path of the image
-var links = document.getElementsByTagName("a");
-var size  = links.length;
-
-for ( var i = 0; i < size; i++ ) {
-    links[i].addEventListener("click", function() {
-        alert( this.previousSibling.previousSibling.getAttribute("src") );
-    }, false);
+  // window.location.replace("index");
 }
 </script>
-
 </body>
 </html>
 

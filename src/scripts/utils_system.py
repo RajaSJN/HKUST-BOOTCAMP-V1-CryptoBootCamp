@@ -11,9 +11,10 @@ def get_account(i):
 def deploy_system(verification,account_number):
     account = get_account(account_number)
     System.deploy(verification,{"from":account})
-def getKey():
+def getKey(account_number): #Returns the Nonce Verification
     contract_instance = System[-1]
-    return contract_instance.getKey()
+    account = get_account(account_number)
+    return contract_instance.getKey({"from":account})
 def addUser(address,account_number):
     contract_instance = System[-1]
     account = get_account(account_number)

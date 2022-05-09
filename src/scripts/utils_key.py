@@ -1,18 +1,20 @@
 from ossaudiodev import control_labels
-from brownie import Key,accounts,config,network,System
+# from brownie import accounts,config,network
+import brownie as br
 def get_account(i):
-    if network.show_active() == "development":
-        return accounts[i]
+    if br.network.show_active() == "development":
+        return br.accounts[i]
     else:
+        print(type(br.config))
         if(i == 1):
-            return accounts.add(config["wallets"]["from_key"])
+            return br.accounts.add(br.config["wallets"]["from_key"])
         else:
-            return accounts.add(config["wallets"]["from_key_2"])
+            return br.accounts.add(br.config["wallets"]["from_key_2"])
 def deploy_key(account_number):
     account = get_account(account_number)
-    Key.deploy({"from":account})
+    br.Key.deploy({"from":account})
 def hash(text,account_number):
     account = get_account(account_number)
-    control_instance = Key[-1]
+    control_instance = br.Key[-1]
     return control_instance.hash(text,{"from":account})
-    
+
