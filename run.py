@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from PIL import Image
 import zbarlight
-
+import hashlib
 from flask import Blueprint, render_template,request,redirect,url_for
 from flask_migrate import Migrate
 from sys import exit
@@ -65,6 +65,8 @@ def qr_read():
             image.load()
         codes = zbarlight.scan_codes(['qrcode'], image)
         with open("randomfile.txt", "w") as o:
-            o.write('QR codes: %s' % codes)
+            # o.write('QR codes: %s'% codes)
+            print(hashlib.sha256(str(codes).encode('utf-8')).hexdigest())
+            o.write(str(hashlib.sha256(str(codes).encode('utf-8')).hexdigest()))
         return render_template('home/index.html', segment='index')
         # return redirect(url_for('home_blueprint.index'))  
