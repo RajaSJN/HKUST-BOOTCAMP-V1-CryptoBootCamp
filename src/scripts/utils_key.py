@@ -1,8 +1,8 @@
-from ossaudiodev import control_labels
 from brownie import Key,accounts,config,network,System
+#import brownie as br
 def get_account(i):
     if network.show_active() == "development":
-        return accounts[i]
+        return br.accounts[i]
     else:
         if(i == 1):
             return accounts.add(config["wallets"]["from_key"])
