@@ -1,4 +1,4 @@
 from brownie import Key,accounts,config,network
-from scripts.utils import *
+from scripts.utils_key import *
 def main():
-    deploy()
+    deploy_key(1)
