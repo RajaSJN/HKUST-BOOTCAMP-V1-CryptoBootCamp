@@ -21,6 +21,14 @@ Team Members
 https://github.com/9tmares/HKUST-BOOTCAMP-V1-crypto-tech.git
 
 ## *Deployment*
+```
+cd "path_to_repo"
+export FLASK_APP=run.py
+cd Keys
+python deploy_key.py
+cd ..
+flask run
+```
 ### *Test Network*
 ```
 truffle migrate --network live
